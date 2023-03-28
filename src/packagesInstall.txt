@@ -1,0 +1,6 @@
+npm i react-router-dom
+npm i @mui/material
+npm i @mui/icons-material
+npm install @emotion/react
+npm install @emotion/styled
+npm i framer-motion
