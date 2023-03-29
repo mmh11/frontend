@@ -90,7 +90,7 @@ export default function CurrencyConverter(){
     const handleChanged = (e) => {
         const inputValue = e.target.value
         if (inputValue !== ""){
-            setCustomPriceData(parseFloat(inputValue).toFixed(2)*priceData)
+            setCustomPriceData(parseFloat(inputValue).toFixed(8)*priceData)
         } else {
             setCustomPriceData(0)
         }
