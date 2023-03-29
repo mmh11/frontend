@@ -12,7 +12,7 @@ export default function LoginDialog(){
     const textButtonStyleClicked = {
         maxWidth:"450px",
         marginLeft:"3VW",
-        color: "#f30987",
+        color: "#a300de",
         fontSize: "0.9VW",
         marginTop:"0.5VH"
     }
@@ -72,11 +72,31 @@ export default function LoginDialog(){
     })
     const handleRegister = (event) => {
         event.preventDefault()
-        console.log(registerInput)
+        console.log("Register Data: ") // register data to backend
+        console.log(registerInput) // register data to backend
     }
     const handleChangeReg = (event) => {
         const {name, value} = event.target
         setRegisterInput(prevInput => {
+            return{
+                ...prevInput,
+                [name]: value
+            }
+        })
+    }
+
+    const [loginInput, setLoginInput] = useState({
+        email: '',
+        password: ''
+    })
+    const handleLogin = (event) => {
+        event.preventDefault()
+        console.log("Login Data: ") // login data to backend
+        console.log(loginInput) // login data to backend
+    }
+    const handleChangeLog = (event) => {
+        const {name, value} = event.target
+        setLoginInput(prevInput => {
             return{
                 ...prevInput,
                 [name]: value
@@ -107,6 +127,9 @@ export default function LoginDialog(){
                         label="email address"
                         variant="standard"
                         fullWidth
+                        name="email"
+                        value={loginInput.email}
+                        onChange={handleChangeLog}
                     />
                     <TextField
                         sx={textfieldSXStyle}
@@ -114,10 +137,17 @@ export default function LoginDialog(){
                         label="Password"
                         variant="standard"
                         fullWidth
+                        name="password"
+                        value={loginInput.password}
+                        onChange={handleChangeLog}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button sx={muiButtonSX} disableRipple style={textButtonStyleClicked2} onClick={handleClicked}> 
+                    <Button 
+                        sx={muiButtonSX} 
+                        disableRipple 
+                        style={textButtonStyleClicked2} 
+                        onClick={handleLogin}> 
                         Login
                     </Button>
                 </DialogActions>

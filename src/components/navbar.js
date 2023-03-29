@@ -70,7 +70,6 @@ export default function Navbar(){
                         style={(location==="/")?textButtonStyleClicked:textButtonStyle}>
                         <p>Home</p>
                     </Button>
-                    <LoginDialog/>
                     <Button 
                         component={Link} 
                         to="/products" 
@@ -105,6 +104,7 @@ export default function Navbar(){
                             <ShoppingCartIcon/>
                         </Badge>
                     </Button>
+                    <LoginDialog/>
                 </Grid>
             </Toolbar>
         </AppBar>
