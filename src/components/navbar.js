@@ -4,6 +4,7 @@ import {Link,useLocation} from 'react-router-dom';
 import { AppBar, Button, Toolbar, Grid, Badge} from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginDialog from "../components/loginDialog.js"
+import CurrencyConverter from "../components/currencyConverter.js"
 
 export default function Navbar(){
     const appbarStyle = {
@@ -78,14 +79,7 @@ export default function Navbar(){
                         style={(location==="/products")?textButtonStyleClicked:textButtonStyle}>
                         <p>Products</p>
                     </Button>
-                    <Button 
-                        component={Link} 
-                        to="/currencyconverter" 
-                        sx={muiButtonSX} 
-                        disableRipple 
-                        style={(location==="/currencyconverter")?textButtonStyleClicked:textButtonStyle}>
-                        <p>Currency Converter</p>
-                    </Button>
+                    <CurrencyConverter/>
                     <Button 
                         component={Link} 
                         to="/profile" 
