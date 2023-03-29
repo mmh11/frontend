@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+a{
+  text-decoration: none;
+}
+
 /* Custom Scrollbar (Martin)*/
 body::-webkit-scrollbar {
   width: 12px;
