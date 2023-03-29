@@ -38,7 +38,6 @@ export default function LoginDialog(){
         color: "#333333",
         fontSize: "1VW",
         paddingBottom: 0,
-        fontWeight: "bold"
     }
     const textButtonStyleClicked2 = {
         maxWidth:"400px",
