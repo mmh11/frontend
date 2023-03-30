@@ -16,7 +16,7 @@ export default function App() {
             <Route path="/products" element={<Products/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/profile" element={<Profile/>}/>
-            <Route path="/productDes" element={<ProductDes/>}/>
+            <Route path="/products/:id" element={<ProductDes/>}/>
         </Routes>
     </>
   );

@@ -1,14 +1,30 @@
 import React from 'react'
 import { motion } from "framer-motion"
 import { Button } from '@mui/material'
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import data from "./lands.js"
+import RecItem from "../components/recItem"
 
-import land1 from "../images/lands/land1.png"
-import land2 from "../images/lands/land2.png"
-import land3 from "../images/lands/land3.jpg"
-import land4 from "../images/lands/land4.png"
+function GetParameterID(){
+    return useParams();
+}
 
-export default function ProductDes(){
+export default function productDes(){
+    const ProductID = GetParameterID();
+    const product=data.find((land)=> land.id ===ProductID.id);
+    const {title, id,category,source,image,description,price }=product;
+    const recList = data.filter(land=>land.id!=ProductID.id).map((data)=>(
+        <RecItem
+            key={data.id}
+            title={data.title}
+            id={data.id}
+            category={data.category}
+            source={data.source}
+            image={data.image}
+            description={data.description}
+            price={data.price}
+        />
+    ));
     const containerStyle = {
         marginLeft:"2rem",
         marginRight:"2rem",
@@ -76,27 +92,6 @@ export default function ProductDes(){
         columnGap: "2rem",
         rowGap: "50px",        
     }
-    const recitemWrapperStyle = {
-        itemAlign:"center",
-        textAlign: "center",
-        padding:"1rem",
-        backgroundColor:"#EEEEEE",
-        borderRadius: "25px"
-    }
-    const recThumbnailStyle = {
-        width:250,
-        height:250,
-        borderRadius: "10px",
-        padding:0
-    }
-    const recItem_nameStyle = {
-        margin:"0.5rem"
-    }
-    const recPriceStyle ={
-        display:"block",
-        fontWeight:600,
-        fontSize: "20px",
-    }
     const rulerStyle = {
         borderTop:  "1px solid #cccc"
     }
@@ -105,30 +100,26 @@ export default function ProductDes(){
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            //style={{backgroundColor:"#EDEDED",}}
         >
             <div class="container" style={containerStyle}>
-                <div class="product_wrapper" style={product_wrapperStyle}>
-                    <img class="product_img" style={product_imgStyle} src={land1} alt="Land1"></img>                    
+            <div class="product_wrapper" style={product_wrapperStyle}>
+                    <img class="product_img" style={product_imgStyle} src={image} alt={title}></img>                    
                     <div class="product_summary" style={product_summaryStyle}>
-                        <h1 class="product_title" style={product_titleStyle}>Land 1</h1>
+                        <h1 class="product_title" style={product_titleStyle}>{title}</h1>
                         <hr style={rulerStyle}></hr>
                         <div class="product_cat" style={product_catStyle}>
                             <span class="cat_title" style={cat_titleStyle}>Category: </span>
-                            <span class="item_cat">Lands</span>
+                            <span class="item_cat">{category}</span>
                             <span> / </span>
-                            <span class="src">The Sandbox</span>
+                            <span class="src">{source}</span>
                         </div>
                         <p class="price" style={product_priceStyle}>
                             <span class="currency">HK $</span>
-                            <span class="amount">120,000.00</span>
+                            <span class="amount">{price}</span>
                         </p>
                         <h3 class="product_des" style={product_desStyle}>Description</h3>
                         <p class="product_des_short" style={product_des_shortStyle}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Donec porttitor, ex eu cursus imperdiet, mi dui congue libero, at rhoncus diam sem id nulla. 
-                            Donec pulvinar fringilla massa. Aliquam rhoncus tellus nec ipsum euismod ultricies. 
-                            Vivamus pharetra non enim ut varius.
+                            {description}
                         </p>
                         <form class="add-to-cart" action="" method="post" encType='multipart/form-data'>
                             <Button type="submit" 
@@ -141,7 +132,6 @@ export default function ProductDes(){
                         </form>      
                     </div>
                 </div>
-                
                 <div class="recommendation" style={recommendationStyle}>
                     <h1 class="recTitle">
                         <span style={recTitleStyle}>
@@ -150,28 +140,10 @@ export default function ProductDes(){
                     </h1>
                     <hr style={rulerStyle}></hr>
                     <ul class="otherProducts" style={recProduct_Style}>
-                        <li class="itemWrapper" style={recitemWrapperStyle}>
-                            <Link to="/productDes">
-                                <img class="item-thumbnail" 
-                                    style={recThumbnailStyle}
-                                    src={land1} alt="land1"></img>
-                            </Link>
-                            <div class="item_summary">
-                                <span class="item_cat">Lands</span>
-                                <span> / </span>
-                                <span class="item_src">The Sandbox</span>
-                                <Link to="">
-                                    <h2 class="item_name" style={recItem_nameStyle}>Land 1</h2>
-                                </Link>
-                                <span class="price" style={recPriceStyle}>
-                                    <span class="currency">HK $</span>
-                                    <span class="amount">11,000.00</span>
-                                </span>
-                            </div> 
-                        </li> 
+                        {recList}
                     </ul>
                 </div>                
             </div>
         </motion.div>
     )
-}
+};

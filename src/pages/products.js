@@ -1,10 +1,8 @@
 import React from 'react'
 import { motion } from "framer-motion"
-import {Link} from 'react-router-dom';
-import land1 from "../images/lands/land1.png"
-import land2 from "../images/lands/land2.png"
-import land3 from "../images/lands/land3.jpg"
-import land4 from "../images/lands/land4.png"
+import {Link} from 'react-router-dom'
+import data from "./lands"
+import ProductItem from '../components/productItem'
 
 export default function Products(){
     const secondaryColor = "#f30987"
@@ -57,22 +55,18 @@ export default function Products(){
         rowGap: "50px",
         listStyle: "none"
     };
-    const itemWrapperStyle = {
-        itemAlign:"center",
-        textAlign: "center"
-    }
-    const thumbnailStyle = {
-        width:400,
-        height:400
-    }
-    const item_nameStyle = {
-        marginBottom: "0.5rem"
-    }
-    const priceStyle ={
-        display:"block",
-        fontWeight:600,
-        fontSize: "20px",
-    }
+    const landList = data.map((data)=>(
+        <ProductItem
+            key={data.id}
+            title={data.title}
+            id={data.id}
+            category={data.category}
+            source={data.source}
+            image={data.image}
+            description={data.description}
+            price={data.price}
+        />
+    ));
     return(
         <motion.div
             initial={{ opacity: 0 }}
@@ -141,70 +135,7 @@ export default function Products(){
                     <h1 class="page_title" style={page_titleStyle}>Products</h1>
                     <div class="products">
                         <ul class="productList"  style={productListStyle}>
-                            <li class="itemWrapper" style={itemWrapperStyle}>
-                                <Link to="/productDes">
-                                    <img class="item-thumbnail" src={land1} alt="land1" style={thumbnailStyle}></img>
-                                </Link>
-                                <div class="item_summary" >
-                                    <span class="item_cat">Lands</span>/
-                                    <span class="item_src">The Sandbox</span>
-                                    <Link to="">
-                                        <h2 class="item_name" style={item_nameStyle}>Land 1</h2>
-                                    </Link>
-                                    <span class="price" style={priceStyle}>
-                                        <span class="currency">HK $</span>
-                                        <span class="amount">11,000.00</span>
-                                    </span>
-                                </div> 
-                            </li>     
-                            <li class="itemWrapper" style={itemWrapperStyle}>
-                                <Link to="">
-                                    <img class="item-thumbnail" src={land2} alt="land2" style={thumbnailStyle}></img>
-                                </Link>
-                                <div class="item_summary">
-                                    <span class="item_cat">Lands</span>/
-                                    <span class="item_src">Decentraland</span>
-                                    <Link to="">
-                                        <h2 class="item_name" style={item_nameStyle}>Land 2</h2>
-                                    </Link>
-                                    <span class="price" style={priceStyle}>
-                                        <span class="currency">HK $</span>
-                                        <span class="amount">99,000.00</span>
-                                    </span>
-                                </div> 
-                            </li>   
-                            <li class="itemWrapper" style={itemWrapperStyle}>
-                                <Link to="">
-                                    <img class="item-thumbnail" src={land3} alt="land3" style={thumbnailStyle}></img>
-                                </Link>
-                                <div class="item_summary">
-                                    <span class="item_cat">Lands</span>/
-                                    <span class="item_src">Somnium Space</span>
-                                    <Link to="">
-                                        <h2 class="item_name" style={item_nameStyle}>Land 3</h2>
-                                    </Link>
-                                    <span class="price" style={priceStyle}>
-                                        <span class="currency">HK $</span>
-                                        <span class="amount">20,000.00</span>
-                                    </span>
-                                </div> 
-                            </li>   
-                            <li class="itemWrapper" style={itemWrapperStyle}>
-                                <Link to="">
-                                    <img class="item-thumbnail" src={land4} alt="land4" style={thumbnailStyle}></img>
-                                </Link>
-                                <div class="item_summary">
-                                    <span class="item_cat">Option Item</span>/
-                                    <span class="item_src">Other</span>
-                                    <Link to="">
-                                        <h2 class="item_name" style={item_nameStyle}>Land 4</h2>
-                                    </Link>
-                                    <span class="price" style={priceStyle}>
-                                        <span class="currency">HK $</span>
-                                        <span class="amount">120,000.00</span>
-                                    </span>
-                                </div> 
-                            </li>                      
+                            {landList}                      
                         </ul>
                     </div>
                 </div>
