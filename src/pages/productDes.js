@@ -104,7 +104,7 @@ export default function productDes(){
             exit={{ opacity: 0 }}
         >
             <div class="container" style={containerStyle}>
-            <div class="product_wrapper" style={product_wrapperStyle}>
+                <div class="product_wrapper" style={product_wrapperStyle}>
                     <img class="product_img" style={product_imgStyle} src={image} alt={title}></img>                    
                     <div class="product_summary" style={product_summaryStyle}>
                         <h1 class="product_title" style={product_titleStyle}>{title}</h1>

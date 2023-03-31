@@ -3,12 +3,14 @@ import { motion } from "framer-motion"
 import {Link} from 'react-router-dom'
 import data from "./lands"
 import ProductItem from '../components/productItem'
+import CatItem from "../components/catItem"
+import SrcItem from "../components/srcItem"
 
 export default function Products(){
     const secondaryColor = "#f30987"
     const containerStyle = {
         display:"flex",
-        gap: "10px"
+        gap: "10px"       
     };
     const sidebarStyle={
         display:"flex",
@@ -26,26 +28,8 @@ export default function Products(){
         marginBottom: "2rem",
         width:"400px"
     }
-    const cat_nameStyle = {
-        fontSize: "35px",
-        textDecoration:"none",
-        fontWeight: 600,
-        marginBottom:"1rem"
-    }
-    const item_cat_nameStyle = {
-        color:secondaryColor,
-    }
-    const item_srcStyle = {
-        fontSize: "30px",
-        paddingLeft:"2rem",
-        marginBottom:"0.5rem"
-    }
     const page_navStyle = {
         fontSize:"24px"
-    }
-    const count_style = {
-        float: "right",
-        paddingRight:"2rem"
     }
     const contentAreaStyle = {
         padding:"2rem",
@@ -59,7 +43,7 @@ export default function Products(){
         marginTop:"3rem",
         display:"flex",
         flexWrap:"wrap",
-        columnGap: "40px",
+        columnGap: "70px",
         rowGap: "50px",
         listStyle: "none"
     };
@@ -73,9 +57,46 @@ export default function Products(){
             image={data.image}
             description={data.description}
             price={data.price}
-        />
-    ));
-    const catList= (cat)=> {
+        />)
+    );
+    function getCategories(data){
+        return Array.from(new Set(data.map((data)=>(data.category)))); 
+    }
+    function getSources(data, cat){
+        return Array.from(new Set(data.filter(data=>data.category===cat).map((data)=>(data.source)))); 
+    }
+    function catCount(data,cat){
+        return data.filter((cur)=>(cur.category===cat)).length;
+    }
+    function srcCount(data,src,cat){
+        return data.filter((cur)=>(cur.source===src && cur.category===cat)).length;
+    }
+    const getCatItem = (cat)=>{
+        return (
+            <CatItem 
+                category={cat}
+                count={catCount(data,cat)}
+            ></CatItem>
+        )
+    }
+    const src_item_list = (srcs, cat)=> srcs.map((src)=>{
+        return (
+            <SrcItem
+            source={src}
+            count={srcCount(data,src,cat)}
+            />
+        )
+        }
+    );
+    const cat_item_list = getCategories(data).map((cat) =>{
+        return (
+            <div style={item_catStyle}>
+                {getCatItem(cat)}
+                {src_item_list(getSources(data,cat),cat)}
+            </div>
+        )}
+    )
+    const catList = (cat)=> {
         return data.filter(data=>data.category===cat).map((data)=>(
             <ProductItem
                 key={data.id}
@@ -89,26 +110,17 @@ export default function Products(){
             />
         ));
     }
-    function findCategories(data){
-        var arr=Array.from(new Set(data.map((data)=>(data.category)))); 
-        return arr;
-    }
-    function findSources(data){
-        var arr=Array.from(new Set(data.map((data)=>(data.source)))); 
-        return arr;
-    }
-    function catCount(data,element){
-        return data.filter((cur)=>(cur.category===element)).length;
-    }
-    function srcCount(data,element){
-        return data.filter((cur)=>(cur.source==element)).length;
-    }
-    return(
-        console.log(findCategories(data)),console.log("next"),
-        console.log(findCategories(data).map((cat)=>(catCount(data,cat)))),
-        console.log(findSources(data)),
-        console.log(findSources(data).map((src)=>(srcCount(data,src)))),
-
+    const cat_product_list = getCategories(data).map((cat) =>{
+        return (
+            <div id={cat} style={{marginTop:"10rem"}}>           
+                <h1 className="category_Name" style={page_titleStyle}>{cat}</h1>
+                <ul className="productList"  style={productListStyle}>
+                    {catList(cat)}             
+                </ul>
+            </div>
+        )}
+    )
+    return(      
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -120,18 +132,9 @@ export default function Products(){
                         <h1 className="sidebar_title" style={sidebar_titleStyle}>
                             Categories
                         </h1>
-                        <ul className="product_cat" >
-                            <ul className="item_cat" style={item_catStyle}>
-                                <li className="cat_name" style={cat_nameStyle}>                                    
-                                    <Link to="" style={item_cat_nameStyle}>Lands</Link>                                                                           
-                                    <span className="count" style={count_style}>(4)</span>
-                                </li>
-                                <li className="item_src" style={item_srcStyle}>
-                                    <Link to="">The Sandbox</Link>
-                                    <span className="count" style={count_style}>(1)</span>
-                                </li>
-                            </ul>
-                        </ul>
+                        <div className="product_cat" >
+                            {cat_item_list}
+                        </div>
                     </div>
                 </div>
                 <div className="contentArea" style={contentAreaStyle}>
@@ -148,18 +151,7 @@ export default function Products(){
                         </div>
                     </div>                    
                     <div className="categories">
-                        <div className="cat_land">
-                            <h1 className="category_Name" style={page_titleStyle}>Lands</h1>
-                            <ul className="productList"  style={productListStyle}>
-                                {catList("Lands")}             
-                            </ul>
-                        </div>
-                        <div className="cat_option">
-                            <h1 className="category_Name" style={page_titleStyle}>Option Item</h1>
-                            <ul className="productList"  style={productListStyle}>
-                                {catList("Option Item")}             
-                            </ul>
-                        </div>
+                        {cat_product_list}
                     </div> 
                 </div>                               
             </div>
