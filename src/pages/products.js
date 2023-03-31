@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import data from "./lands"
 import ProductItem from '../components/productItem'
 
-
 export default function Products(){
     const secondaryColor = "#f30987"
     const containerStyle = {
@@ -105,6 +104,11 @@ export default function Products(){
         return data.filter((cur)=>(cur.source==element)).length;
     }
     return(
+        console.log(findCategories(data)),console.log("next"),
+        console.log(findCategories(data).map((cat)=>(catCount(data,cat)))),
+        console.log(findSources(data)),
+        console.log(findSources(data).map((src)=>(srcCount(data,src)))),
+
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
