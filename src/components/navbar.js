@@ -92,6 +92,14 @@ export default function Navbar(){
                     </Button>
                     <Button 
                         component={Link} 
+                        to="/contact" 
+                        sx={muiButtonSX} 
+                        disableRipple 
+                        style={(location==="/contact")?textButtonStyleClicked:textButtonStyle}>
+                        <p>Contact Us</p>
+                    </Button>
+                    <Button 
+                        component={Link} 
                         to="/cart" 
                         sx={muiButtonSX} 
                         disableRipple 
