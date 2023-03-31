@@ -6,17 +6,21 @@ export default function ProductItem(props){
         itemAlign:"center",
         textAlign: "center"
     }
+    const item_metaInfoStyle = {
+        fontSize:"30px"
+    }
     const thumbnailStyle = {
-        width:400,
-        height:400
+        width:500,
+        height:500
     }
     const item_nameStyle = {
-        marginBottom: "0.5rem"
+        margin: "0.5rem",
+        fontSize:"45px"
     }
     const priceStyle ={
         display:"block",
         fontWeight:600,
-        fontSize: "20px",
+        fontSize: "30px",
     }
     return(
         <li class="itemWrapper" style={itemWrapperStyle}>
@@ -24,8 +28,10 @@ export default function ProductItem(props){
                 <img class="item-thumbnail" style={thumbnailStyle} src={props.image} alt={props.title} ></img>
             </Link>
             <div class="item_summary" >
-                <span class="item_cat">{props.category}</span>/
-                <span class="item_src">{props.source}</span>
+                <div class="item_metaInfo" style={item_metaInfoStyle}>
+                    <span class="item_cat">{props.category}</span>/
+                    <span class="item_src">{props.source}</span>
+                </div>
                 <Link to={`/products/${props.id}`}>
                     <h2 class="item_name" style={item_nameStyle}>{props.title}</h2>
                 </Link>

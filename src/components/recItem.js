@@ -6,22 +6,26 @@ export default function recItem(props){
         itemAlign:"center",
         textAlign: "center",
         padding:"1rem",
-        backgroundColor:"#EEEEEE",
+        backgroundColor:"#EBECF0",
         borderRadius: "25px"
     }
+    const recItem_metaInfoStyle = {
+        fontSize:"20px"
+    }
     const recThumbnailStyle = {
-        width:250,
-        height:250,
+        width:450,
+        height:450,
         borderRadius: "10px",
         padding:0
     }
     const recItem_nameStyle = {
-        margin:"0.5rem"
+        margin:"0.5rem",
+        fontSize:"40px"
     }
     const recPriceStyle ={
         display:"block",
         fontWeight:600,
-        fontSize: "20px",
+        fontSize: "25px",
     }
     return(
         <li class="itemWrapper" style={recitemWrapperStyle}>
@@ -30,9 +34,12 @@ export default function recItem(props){
                     src={props.image} alt={props.title} ></img>
             </Link>
             <div class="item_summary">
-                <span class="item_cat">{props.category}</span>
-                <span> / </span>
-                <span class="item_src">{props.source}</span>
+                <div class="item_metaInfo" style={recItem_metaInfoStyle}>
+                    <span class="item_cat">{props.category}</span>
+                    <span> / </span>
+                    <span class="item_src">{props.source}</span>
+                </div>
+                
                 <Link to={`/products/${props.id}`}>
                     <h2 class="item_name" style={recItem_nameStyle}>{props.title}</h2>
                 </Link>

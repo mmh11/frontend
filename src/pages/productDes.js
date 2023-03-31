@@ -36,7 +36,7 @@ export default function productDes(){
         itemAlign: "stretch",
         gap: "20px",
         padding:"2rem",
-        fontSize:"25px"
+        fontSize:"30px"
     }
     const product_imgStyle = {
         width:"600px",
@@ -47,14 +47,15 @@ export default function productDes(){
         flex:1
     }
     const product_titleStyle = {
-        fontSize:"60px",
+        fontSize:"80px",
         marginBottom: "0.5rem"
     }
     const product_catStyle={
-        fontSize:"20px"
+        fontSize:"25px"
     }
     const product_desStyle = {
-        margin:0
+        margin:0,
+        fontSize:"40px"
     }
     const product_des_shortStyle = {
         marginTop:0
@@ -63,14 +64,15 @@ export default function productDes(){
         fontWeight:600,
     }
     const product_priceStyle = {
-        fontSize:"40px",
+        fontSize:"50px",
         fontWeight: 700
     }
     const buttonStyle = {
         BackgroundColor: "#f30987",
-        width: "15VH",
+        width: "25VH",
         height: "5VH",
         fontWeight: 600,
+        fontSize:"30px",
         fontDecoration: "uppercase"
     }
     const muiButtonSX = {
