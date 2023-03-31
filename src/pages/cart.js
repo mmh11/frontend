@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from "framer-motion"
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Card } from '@mui/material'
+import { TextField, Dialog, DialogActions, DialogContent, Button, Card, Snackbar } from '@mui/material'
 import { removeCart } from "../redux/cartReducer";
-import { fontWeight } from '@mui/system';
+import Logo from "../images/metaphorLab.png"
 
 export default function Cart(){
     const muiButtonSX = {
@@ -13,9 +13,9 @@ export default function Cart(){
         }
     }
     const muiButtonSX2 = {
-        backgroundColor: "#fccf38",
+        backgroundColor: "#f30987",
         "&:hover": { 
-            backgroundColor: "#bf9b22",
+            backgroundColor: "#bf066a",
         }
     }
     const textButtonStyleClicked = {
@@ -66,8 +66,46 @@ export default function Cart(){
         marginRight: "12VW",
         fontWeight: "bold"
     }
+    const dialogStyle = {
+        backgroundColor: "#3b3b3b",
+        color: "white",
+        padding: 0
+    }
+    const textfieldSXStyle = {
+        "& .MuiInputBase-root": {
+            color: "#cccccc"
+        },
+        " .MuiInputLabel-root": {
+            color: "#cccccc"
+        },
+        "& label.Mui-focused": {
+            color: "#f30987"
+        },
+        '& .MuiInput-underline:before': { 
+            borderBottomColor: 'black' 
+        },
+        '& .MuiInput-underline:after': { 
+            borderBottomColor: 'black' 
+        },
+    }
     const dispatch = useDispatch()
     const currentCart = useSelector((state) => state.cart.cart)
+    const [open, setOpen] = useState(false)
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const handleSnack = () => {
+        setSnackbarOpen(!snackbarOpen)
+    }
+    const handleClicked = () => {
+        setOpen(!open)
+    }
+    const handleCheckout = () =>{
+        console.log(currentCart)
+        // after user clicked checkout, pass data of the "currentCart" to the backend !!
+        // some code send to backend
+        dispatch(removeCart()) // this line remove all temporary data in the redux(the cart)
+        setOpen(!open)
+        setSnackbarOpen(!snackbarOpen)
+    }
     let totalPrice = 0.00
     for (let i in currentCart){
         let itemPrice = currentCart[i].goods.price.replace(/,/g, '')
@@ -84,6 +122,12 @@ export default function Cart(){
                 <p style={titleStyle}>
                     Your Shopping Cart Is Empty!
                 </p>
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={10000}
+                    onClose={handleSnack}
+                    message="Purchase Successfully!"
+                />
             </div>:
             <div style={bodyDivStyle}>
                 <br/>
@@ -101,7 +145,7 @@ export default function Cart(){
                         </Card>
                     ))}
                 </div>
-                <p style={rightPStyle}>Subtotal:&nbsp;{totalPrice}</p>
+                <p style={rightPStyle}>Subtotal:&nbsp;${totalPrice}</p>
                 <br/><br/><br/>
                 <div style={bottomDivStyle}>
                     <Button 
@@ -114,10 +158,40 @@ export default function Cart(){
                     <Button 
                         sx={muiButtonSX2} 
                         disableRipple 
-                        style={textButtonStyleClicked}>
+                        style={textButtonStyleClicked}
+                        onClick={handleClicked}>
                         Checkout
                     </Button>
+                    <Dialog 
+                        open={open} 
+                        PaperProps={{sx: {width: "50%", minHeight: "600px"}}}
+                        onClose={handleClicked}>
+                        <DialogContent style={dialogStyle}>
+                            <div style={{marginLeft: "5VW", marginRight: "5VW", marginTop: "7VW"}}>
+                                <p style={{fontSize: "1.5VW", color: "#f30987"}}>Card Detail</p>
+                                <TextField label="Card Number" variant="standard" style={{width:"90%"}} sx={textfieldSXStyle}/>
+                                <br/><br/>
+                                <p>Expiry Date</p>
+                                <div style={{display: "flex"}}>
+                                    <TextField label="M" variant="standard" style={{width:"20%"}} sx={textfieldSXStyle}/>
+                                    &nbsp;<p>/</p>&nbsp;
+                                    <TextField label="Y" variant="standard" style={{width:"20%"}} sx={textfieldSXStyle}/>
+                                </div>
+                                <br/><br/>
+                                <p>CVV Code</p>
+                                <TextField label="CVV" variant="standard" sx={textfieldSXStyle}/>
+                                <br/><br/><br/><br/>
+                            </div>
+                            <Button style={{width: "100%", backgroundColor: "#f30987", color:"white", marginTop:"4VH", height: "100px"}} onClick={handleCheckout}>Checkout</Button>
+                        </DialogContent>
+                    </Dialog>
                 </div>
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={10000}
+                    onClose={handleSnack}
+                    message="Purchase Successfully!"
+                />
             </div>}
         </motion.div>
     )
