@@ -4,12 +4,14 @@ import { Button } from '@mui/material'
 import {Link, useParams} from 'react-router-dom';
 import data from "./lands.js"
 import RecItem from "../components/recItem"
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart } from "../redux/cartReducer";
 
 function GetParameterID(){
     return useParams();
 }
 
-export default function productDes(){
+export default function ProductDes(){
     const ProductID = GetParameterID();
     const product=data.find((land)=> land.id ===ProductID.id);
     const {title, id,category,source,image,description,price }=product;
@@ -97,6 +99,7 @@ export default function productDes(){
     const rulerStyle = {
         borderTop:  "1px solid #cccc"
     }
+    const dispatch = useDispatch()
     return(
         <motion.div 
             initial={{ opacity: 0 }}
@@ -123,15 +126,15 @@ export default function productDes(){
                         <p class="product_des_short" style={product_des_shortStyle}>
                             {description}
                         </p>
-                        <form class="add-to-cart" action="" method="post" encType='multipart/form-data'>
-                            <Button type="submit" 
-                                    name="add-to-cart" 
-                                    variant="contained"
-                                    sx={muiButtonSX}
-                                    style={buttonStyle}
-                            >ADD TO CART
-                            </Button>
-                        </form>      
+                        {/*<form class="add-to-cart" action="" method="post" encType='multipart/form-data'> I commented this part to test the cart first. by Martin*/}
+                        <Button type="submit" 
+                                name="add-to-cart" 
+                                variant="contained"
+                                sx={muiButtonSX}
+                                style={buttonStyle}
+                                onClick={()=>dispatch(addCart(product))}
+                        >ADD TO CART
+                        </Button>  
                     </div>
                 </div>
                 <div class="recommendation" style={recommendationStyle}>
