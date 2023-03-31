@@ -1,4 +1,9 @@
 import React from 'react'
+import { motion } from "framer-motion"
+import {Link} from 'react-router-dom'
+import data from "./lands"
+import ProductItem from '../components/productItem'
+
 
 export default function Products(){
     const secondaryColor = "#f30987"
@@ -100,8 +105,60 @@ export default function Products(){
         return data.filter((cur)=>(cur.source==element)).length;
     }
     return(
-        <div>
-    
-        </div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>  
+                    
+            <div style={containerStyle}>
+                <div className="sidebar" style={sidebarStyle}>
+                    <div className="categories">
+                        <h1 className="sidebar_title" style={sidebar_titleStyle}>
+                            Categories
+                        </h1>
+                        <ul className="product_cat" >
+                            <ul className="item_cat" style={item_catStyle}>
+                                <li className="cat_name" style={cat_nameStyle}>                                    
+                                    <Link to="" style={item_cat_nameStyle}>Lands</Link>                                                                           
+                                    <span className="count" style={count_style}>(4)</span>
+                                </li>
+                                <li className="item_src" style={item_srcStyle}>
+                                    <Link to="">The Sandbox</Link>
+                                    <span className="count" style={count_style}>(1)</span>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                <div className="contentArea" style={contentAreaStyle}>
+                    <nav className="page_nav" style={page_navStyle}>
+                        <Link to="/">Home</Link>/
+                        <Link to="">Products</Link>
+                    </nav>
+                    <div className="all_product">
+                        <h1 className="page_title" style={page_titleStyle}>Products</h1>
+                        <div className="products">
+                            <ul className="productList"  style={productListStyle}>
+                                {landList}                      
+                            </ul>
+                        </div>
+                    </div>                    
+                    <div className="categories">
+                        <div className="cat_land">
+                            <h1 className="category_Name" style={page_titleStyle}>Lands</h1>
+                            <ul className="productList"  style={productListStyle}>
+                                {catList("Lands")}             
+                            </ul>
+                        </div>
+                        <div className="cat_option">
+                            <h1 className="category_Name" style={page_titleStyle}>Option Item</h1>
+                            <ul className="productList"  style={productListStyle}>
+                                {catList("Option Item")}             
+                            </ul>
+                        </div>
+                    </div> 
+                </div>                               
+            </div>
+        </motion.div>
     )
 }
