@@ -5,6 +5,7 @@ import { AppBar, Button, Toolbar, Grid, Badge} from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginDialog from "../components/loginDialog.js"
 import CurrencyConverter from "../components/currencyConverter.js"
+import { useSelector } from 'react-redux';
 
 export default function Navbar(){
     const appbarStyle = {
@@ -53,6 +54,7 @@ export default function Navbar(){
         fontSize: "1.5VW"
     }
     const location = useLocation().pathname;
+    const currentCart = useSelector((state) => state.cart.cart)
     return(
         <AppBar position="static" style={appbarStyle}>
             <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -94,7 +96,7 @@ export default function Navbar(){
                         sx={muiButtonSX} 
                         disableRipple 
                         style={(location==="/cart")?textButtonStyleClicked:textButtonStyle}>
-                        <Badge badgeContent={2} color="secondary">
+                        <Badge badgeContent={currentCart.length} color="secondary">
                             <ShoppingCartIcon/>
                         </Badge>
                     </Button>
