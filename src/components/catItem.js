@@ -1,8 +1,7 @@
 import React from "react";
-import {Link} from 'react-router-dom';
-import data from "../pages/lands"
 
 export default function catItem(props){
+    const secondaryColor = "#f30987";
     const cat_nameStyle = {
         fontSize: "35px",
         textDecoration:"none",
@@ -16,10 +15,14 @@ export default function catItem(props){
         float: "right",
         paddingRight:"2rem"
     }
-    return (       
-        <li class="cat_name" style={cat_nameStyle}>                                    
-            <Link to="" style={item_cat_nameStyle}>{props.category}</Link>                                                                           
+    const sectionID="#"+props.category;
+    return (              
+        <div class="cat_name" style={cat_nameStyle}>                                    
+            <a href={sectionID}
+                style={item_cat_nameStyle}>
+                {props.category}
+            </a>                                                                           
             <span class="count" style={count_style}>{props.count}</span>
-        </li>        
+        </div>        
     );
 }
