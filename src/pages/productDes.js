@@ -132,7 +132,7 @@ export default function ProductDes(){
                                 variant="contained"
                                 sx={muiButtonSX}
                                 style={buttonStyle}
-                                onClick={()=>dispatch(addCart(id))}
+                                onClick={()=>dispatch(addCart(product))}
                         >ADD TO CART
                         </Button>  
                     </div>
