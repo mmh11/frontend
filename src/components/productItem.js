@@ -24,15 +24,19 @@ export default function ProductItem(props){
     }
     return(        
         <li class="itemWrapper" style={itemWrapperStyle}>
-            <Link to={`/products/${props.id}`}>
-                <img class="item-thumbnail" style={thumbnailStyle} src={props.image} alt={props.title} ></img>
-            </Link>
+            {props.date===undefined?
+                 <Link to={`/products/${props.id}`}>
+                 <img class="item-thumbnail" style={thumbnailStyle} src={props.image} alt={props.title} ></img>
+             </Link>
+             :<img class="item-thumbnail" style={thumbnailStyle} src={props.image} alt={props.title} ></img>
+            }
+           
             <div class="item_summary" >
                 <div class="item_metaInfo" style={item_metaInfoStyle}>
                     <span class="item_cat">{props.category}</span>/
                     <span class="item_src">{props.source}</span>
                 </div>
-                {props.date===undefined ?
+                {props.date==undefined ?
                     <Link to={`/products/${props.id}`}>
                         <h2 class="item_name" style={item_nameStyle}>{props.title}</h2>
                     </Link>
