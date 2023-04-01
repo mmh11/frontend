@@ -1,0 +1,21 @@
+products:
+    "title"     :(string)
+    "id"        :(string)
+    "category"  :(string)
+    "source"    :(string)
+    "image"     :(string path to image)
+    "description": (string)
+    "price"     : (number)
+
+seller(to list land):
+    "sellerName":(string)
+    "email"     :(string)
+    "source"    :(string)
+    "landName"  :(string)
+    "price"     :(number)
+    "comment"   :(string)
+
+user
+    
+
+

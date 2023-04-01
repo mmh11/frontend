@@ -22,7 +22,7 @@ export default function ProductItem(props){
         fontWeight:600,
         fontSize: "30px",
     }
-    return(
+    return(        
         <li class="itemWrapper" style={itemWrapperStyle}>
             <Link to={`/products/${props.id}`}>
                 <img class="item-thumbnail" style={thumbnailStyle} src={props.image} alt={props.title} ></img>
@@ -32,13 +32,24 @@ export default function ProductItem(props){
                     <span class="item_cat">{props.category}</span>/
                     <span class="item_src">{props.source}</span>
                 </div>
-                <Link to={`/products/${props.id}`}>
+                {props.date===undefined ?
+                    <Link to={`/products/${props.id}`}>
+                        <h2 class="item_name" style={item_nameStyle}>{props.title}</h2>
+                    </Link>
+                :
+                <div>
                     <h2 class="item_name" style={item_nameStyle}>{props.title}</h2>
-                </Link>
+                    <span class="date_of_purchase" style={priceStyle}>
+                        <span class="data_title">Date of purchase: </span>
+                        <span class="data">{props.date}</span>
+                    </span>
+                </div>
+                }
                 <span class="price" style={priceStyle}>
                     <span class="currency">HK $</span>
                     <span class="amount">{props.price}</span>
                 </span>
+                
             </div> 
         </li>
 

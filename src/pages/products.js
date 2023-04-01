@@ -47,7 +47,7 @@ export default function Products(){
         rowGap: "50px",
         listStyle: "none"
     };
-    const landList = data.map((data)=>(
+    const landList = data.map((data,)=>(
         <ProductItem
             key={data.id}
             title={data.title}
@@ -57,6 +57,7 @@ export default function Products(){
             image={data.image}
             description={data.description}
             price={data.price}
+            date={data.date}
         />)
     );
     function getCategories(data){
