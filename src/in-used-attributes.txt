@@ -1,21 +1,31 @@
 products:
-    "title"     :(string)
-    "id"        :(string)
-    "category"  :(string)
-    "source"    :(string)
-    "image"     :(string path to image)
-    "description": (string)
+    "title"     : (string)
+    "id"        : (string)
+    "category"  : (string)
+    "source"    : (string)
+    "image"     : (string path to image)
+    "description":(string)
     "price"     : (number)
 
 seller(to list land):
-    "sellerName":(string)
-    "email"     :(string)
-    "source"    :(string)
-    "landName"  :(string)
-    "price"     :(number)
-    "comment"   :(string)
+    "sellerName": (string)
+    "email"     : (string)
+    "source"    : (string)
+    "landName"  : (string)
+    "price"     : (number)
+    "comment"   : (string)
 
-user
-    
+user:
+    "uid"       : (string)
+    "email"     : (string)
+
+purchased items:
+    "title"     : (string)
+    "id"        : (string)
+    "category"  : (string)
+    "source"    : (string)
+    "image"     : (string path to image)
+    "price"     : (number)
+    "date"      : (string)
 
 
