@@ -1,8 +1,14 @@
 import React, {useState} from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import Logo from "../images/metaphorLab.png"
+import AuthContext from "../../store/auth-context";
+import { useContext } from "react";
 
 export default function LoginDialog(){
+    
+    const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
+
     const muiButtonSX = {
         "&:hover": { 
             backgroundColor: "transparent",
@@ -88,11 +94,39 @@ export default function LoginDialog(){
         email: '',
         password: ''
     })
-    const handleLogin = (event) => {
-        event.preventDefault()
-        console.log("Login Data: ") // login data to backend
-        console.log(loginInput) // login data to backend
+
+    const handleLogin = async (event) => {
+        // Prevent default actions
+        event.preventDefault();
+    
+        // Get email and password from the form
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+    
+        // Get response from the server
+        try {
+          const response = await axios.post("http://localhost:8800/auth/login", {
+            email,
+            password,
+          });
+          // Get data from the response
+          const data = response.data;
+          // Define authState
+          const authState = {
+            isLoggedIn: true,
+            token: data.token,
+            username: data.username,
+            userId: data.userId,
+          };
+          // Call the login function to update authState
+          login(authState);
+          // Redirect to the home page
+          navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
     }
+
     const handleChangeLog = (event) => {
         const {name, value} = event.target
         setLoginInput(prevInput => {
