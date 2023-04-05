@@ -1,13 +1,14 @@
-import React, {useState} from 'react'
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import Logo from "../images/metaphorLab.png"
-import AuthContext from "../../store/auth-context";
-import { useContext } from "react";
+import React, {useState} from 'react';
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import Logo from "../images/metaphorLab.png";
 
 export default function LoginDialog(){
-    
-    const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
+
+    var emails = []
+    var passwords = []
+    var IsLogin = localStorage.getItem("IsLogin") == null? false: localStorage.getItem("IsLogin");
+    console.log(IsLogin);
+    //localStorage.setItem("IsLogin", false); // hard reset
 
     const muiButtonSX = {
         "&:hover": { 
@@ -15,6 +16,7 @@ export default function LoginDialog(){
             textDecoration: "underline"
         }
     }
+
     const textButtonStyleClicked = {
         maxWidth:"450px",
         marginLeft:"3VW",
@@ -67,7 +69,10 @@ export default function LoginDialog(){
     // dialog control
     const [open, setOpen] = useState(false)
     const handleClicked = () => {
-        setOpen(!open)
+        if(localStorage.getItem("IsLogin") == "false"){
+            setOpen(!open);
+        }
+        
     }
 
     // data
@@ -79,6 +84,10 @@ export default function LoginDialog(){
         event.preventDefault()
         console.log("Register Data: ") // register data to backend
         console.log(registerInput) // register data to backend
+        
+        emails.push(registerInput.email)
+        passwords.push(registerInput.password)
+
     }
     const handleChangeReg = (event) => {
         const {name, value} = event.target
@@ -100,31 +109,27 @@ export default function LoginDialog(){
         event.preventDefault();
     
         // Get email and password from the form
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-    
-        // Get response from the server
-        try {
-          const response = await axios.post("http://localhost:8800/auth/login", {
-            email,
-            password,
-          });
-          // Get data from the response
-          const data = response.data;
-          // Define authState
-          const authState = {
-            isLoggedIn: true,
-            token: data.token,
-            username: data.username,
-            userId: data.userId,
-          };
-          // Call the login function to update authState
-          login(authState);
-          // Redirect to the home page
-          navigate("/");
-        } catch (error) {
-          console.log(error);
+        const email = loginInput.email;
+        const password = loginInput.password;
+
+
+        const emailIndex = emails.indexOf(email);
+        if(emailIndex > -1){
+            if (passwords[emailIndex] == password){
+                IsLogin = true;
+            }
         }
+
+        if(IsLogin){
+            localStorage.setItem("account", email);
+            localStorage.setItem("IsLogin", true); 
+            window.location.reload(false);
+        }
+        
+        console.log(emails);
+        console.log(passwords);
+        
+        console.log("IsLogin: "+IsLogin);
     }
 
     const handleChangeLog = (event) => {
@@ -144,7 +149,7 @@ export default function LoginDialog(){
                 disableRipple 
                 style={textButtonStyleClicked}
                 onClick={handleClicked}>
-                <p>Login</p>
+                <p>{localStorage.getItem("IsLogin") == "true"? "Welcome "+localStorage.getItem("account"):"Login"}</p>
             </Button>
             <Dialog open={open} onClose={handleClicked}>
                 <DialogContent>
